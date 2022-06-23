@@ -17,7 +17,7 @@ import java.security.Principal;
 
 /**
  * @Description: 登录
- * @Author: Awei
+ * @Author: Wangshumin
  * @Create: 2021-03-09 18:39
  **/
 @Api(tags = "LoginController")
@@ -42,7 +42,6 @@ public class LoginController {
         if (null == principal) {
             return null;
         }
-
         String username = principal.getName();
         Admin admin = adminService.getAdminByUsername(username);
         admin.setPassword(null);
