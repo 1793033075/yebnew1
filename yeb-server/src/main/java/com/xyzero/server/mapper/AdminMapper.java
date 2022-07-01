@@ -18,9 +18,4 @@ import java.util.List;
 @Component
 public interface AdminMapper extends BaseMapper<Admin> {
 
-    /**
-     * 根据用户id获取菜单列表
-     * @param id
-     */
-    List<Menu> getMenusByAdminId(Integer id);
 }
