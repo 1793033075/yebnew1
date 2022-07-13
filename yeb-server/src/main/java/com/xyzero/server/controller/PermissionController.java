@@ -61,7 +61,7 @@ public class PermissionController {
         if (roleService.removeByIds(Arrays.asList(roles))) {
             return RespBean.success("删除成功");
         }else{
-            return RespBean.error("删除失败");
+            return RespBean.error("删除失败!");
         }
     }
     @ApiOperation(value = "查询所有菜单")
