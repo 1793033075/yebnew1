@@ -20,4 +20,10 @@ public interface IMenuService extends IService<Menu> {
      * @return
      */
     List<Menu> getMenusByAdminId();
+
+    /**
+     * 查询所有菜单
+     * @return
+     */
+    List<Menu> getAllMenus();
 }

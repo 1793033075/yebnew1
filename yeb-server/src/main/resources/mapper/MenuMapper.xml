@@ -65,5 +65,9 @@
         AND m2.enabled=true
     </select>
 
+    <select id="getAllMenus" resultType="com.xyzero.server.pojo.Menu">
+        select * from t_menu
+    </select>
+
 
 </mapper>
