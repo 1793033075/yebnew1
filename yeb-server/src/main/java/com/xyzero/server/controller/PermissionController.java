@@ -27,7 +27,7 @@ public class PermissionController {
     private IMenuRoleService menuRoleService;
 
     @ApiOperation(value = "获取所有角色")
-    @GetMapping("/")
+    @GetMapping("/allRoles")
     public List<Role> getAllRoles(){
         return roleService.list();
     }
@@ -71,7 +71,7 @@ public class PermissionController {
         }
     }
     @ApiOperation(value = "查询所有菜单")
-    @GetMapping("/menus")
+    @GetMapping("/menusAll")
     public List<Menu> getAllMenus(){
         return menuService.getAllMenus();
     }

@@ -63,8 +63,6 @@
         m2.keepAlive as keepAlive2,
         m2.requireAuth as requireAuth2,
         m2.enabled as enabled2
-
-
         FROM
         t_menu m1,
         t_menu m2,
