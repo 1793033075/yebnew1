@@ -12,7 +12,8 @@
         <result column="isParent" property="isParent" />
     </resultMap>
     <resultMap id="DepartmentWithChildren" type="com.xyzero.server.pojo.Department" extends="BaseResultMap">
-        <collection property="children" ofType="com.xyzero.server.pojo.Department" select="com.xyzero.server.mapper.DepartmentMapper.getAllDepartments" column="id">
+        <collection property="children" ofType="com.xyzero.server.pojo.Department"
+                    select="com.xyzero.server.mapper.DepartmentMapper.getAllDepartments" column="id">
         </collection>
     </resultMap>
 
@@ -21,7 +22,11 @@
     <sql id="Base_Column_List">
         id, name, parentId, depPath, enabled, isParent
     </sql>
-<!--    添加部门-->
+    <!--    删除部门-->
+    <select id="deleteDep" statementType="CALLABLE">
+        call deleteDep(#{id,mode=IN,javaType=INTEGER},#{result,mode=OUT,javaType=INTEGER})
+    </select>
+    <!--    添加部门-->
     <select id="addDep" statementType="CALLABLE">
     call addDep(#{name,mode=IN,jdbcType=VARCHAR},#{parentId,mode=IN,jdbcType=INTEGER},#{enabled,mode=IN,jdbcType=BOOLEAN},#{result,mode=OUT,jdbcType=INTEGER},#{id,mode=OUT,jdbcType=INTEGER})
     </select>

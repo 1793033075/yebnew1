@@ -25,4 +25,10 @@ public interface DepartmentMapper extends BaseMapper<Department> {
      * @param department
      */
     void addDep(Department department);
+
+    /**
+     * 删除部门
+     * @param dep
+     */
+    void deleteDep(Department dep);
 }
