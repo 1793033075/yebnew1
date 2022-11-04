@@ -1,9 +1,13 @@
 package com.xyzero.server.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.api.R;
+import com.xyzero.server.AdminUtils;
 import com.xyzero.server.config.security.JwtTokenUtil;
+import com.xyzero.server.mapper.AdminRoleMapper;
 import com.xyzero.server.pojo.Admin;
 import com.xyzero.server.mapper.AdminMapper;
+import com.xyzero.server.pojo.AdminRole;
 import com.xyzero.server.pojo.Menu;
 import com.xyzero.server.pojo.RespBean;
 import com.xyzero.server.service.IAdminService;
@@ -16,6 +20,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -43,6 +48,9 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     private JwtTokenUtil jwtTokenUtil;
     @Autowired
     private AdminMapper adminMapper;
+
+    @Autowired
+    private AdminRoleMapper adminRoleMapper;
 
     @Value("${jwt.tokenHead}")
     private String tokenHead;
@@ -100,6 +108,35 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
         return admin;
     }
 
+    /**
+     * 获取所有操作员，不包括自己
+     * @param keywords
+     * @return
+     */
+    @Override
+    public List<Admin> getAllAdmins(String keywords) {
+        return adminMapper.getAllAdmins(AdminUtils.getCurrentAdmin().getId(),keywords);
+    }
+
+    /**
+     * 更新操作员的角色
+     * @param adminId
+     * @param rids
+     * @return
+     */
+    @Override
+    @Transactional
+    public RespBean addAdminRole(Integer adminId, Integer[] rids) {
+        //先删除操作员对应角色
+        adminRoleMapper.delete(new QueryWrapper<AdminRole>().eq("adminid",adminId));
+        //新增操作员对应角色
+        Integer result = adminRoleMapper.addAdminRole(adminId, rids);
+        if(rids.length==result){
+            return RespBean.success("更新成功");
+        }else{
+            return RespBean.error("更新失败");
+        }
+    }
 
 
 }

@@ -4,6 +4,7 @@ import com.xyzero.server.pojo.Admin;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.xyzero.server.pojo.Menu;
 import com.xyzero.server.pojo.RespBean;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -36,4 +37,17 @@ public interface IAdminService extends IService<Admin> {
      */
     Admin getAdminByUsername(String username);
 
+    /**
+     * 获取全部操作员，除了自己
+     * @param keywords
+     * @return
+     */
+    List<Admin> getAllAdmins(String keywords);
+
+    /**
+     * 更新操作员角色
+     * @param adminId
+     * @param rids
+     */
+    RespBean addAdminRole(Integer adminId, Integer[] rids);
 }
