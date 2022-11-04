@@ -24,7 +24,7 @@
     </sql>
     <!--    删除部门-->
     <select id="deleteDep" statementType="CALLABLE">
-        call deleteDep(#{id,mode=IN,javaType=INTEGER},#{result,mode=OUT,javaType=INTEGER})
+        call deleteDep(#{id,mode=IN,jdbcType=INTEGER},#{result,mode=OUT,jdbcType=INTEGER})
     </select>
     <!--    添加部门-->
     <select id="addDep" statementType="CALLABLE">
