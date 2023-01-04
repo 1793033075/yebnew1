@@ -5,8 +5,10 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xyzero.server.pojo.Employee;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.poi.hssf.record.DVALRecord;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * <p>
@@ -26,4 +28,6 @@ public interface EmployeeMapper extends BaseMapper<Employee> {
      * @return
      */
     IPage<Employee> getEmployeeListByPage(Page<Employee> page, @Param("employee") Employee employee, @Param("beginDateScope") LocalDate beginDateScope[]);
+
+    List<Employee> getEmployee(Integer id);
 }

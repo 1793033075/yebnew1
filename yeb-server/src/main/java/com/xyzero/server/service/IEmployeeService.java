@@ -6,6 +6,7 @@ import com.xyzero.server.pojo.RespBean;
 import com.xyzero.server.pojo.RespPageBean;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * <p>
@@ -31,4 +32,17 @@ public interface IEmployeeService extends IService<Employee> {
      * @return
      */
     RespBean maxWorkID();
+
+    /**
+     * 添加员工
+     * @param employee
+     * @return
+     */
+    RespBean addEmp(Employee employee);
+
+    /**
+     * 导出员工
+     * @param
+     */
+    List<Employee> getEmployee(Integer id);
 }

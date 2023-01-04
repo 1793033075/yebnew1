@@ -1,16 +1,20 @@
 package com.xyzero.server.controller;
 
 
+import cn.afterturn.easypoi.excel.ExcelExportUtil;
+import cn.afterturn.easypoi.excel.entity.ExportParams;
+import cn.afterturn.easypoi.excel.entity.enmus.ExcelType;
 import com.xyzero.server.pojo.*;
 import com.xyzero.server.service.*;
 import io.swagger.annotations.ApiOperation;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.net.URLEncoder;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -81,10 +85,60 @@ public class EmployeeController {
     }
 
     @ApiOperation(value = "获取工号")
-    @GetMapping("maxWorkID")
+    @GetMapping("/maxWorkID")
     public RespBean maxworkID(){
         return employeeService.maxWorkID();
     }
 
+    @ApiOperation(value = "添加员工")
+    @PostMapping("/")
+    public RespBean addEmp(@RequestBody Employee employee){
+        return employeeService.addEmp(employee);
+    }
 
+    @ApiOperation(value = "更新员工")
+    @PutMapping("/")
+    public RespBean updateEmp(@RequestBody Employee employee){
+        if(employeeService.updateById(employee)){
+            return RespBean.success("更新成功！");
+        }
+        return RespBean.error("更新失败！");
+    }
+    @ApiOperation(value = "删除员工")
+    @DeleteMapping("/{id}")
+    public RespBean deleteEmp(@PathVariable Integer id){
+        if (employeeService.removeById(id)){
+            return RespBean.success("删除成功！");
+        }
+        return RespBean.error("删除失败！");
+    }
+    @ApiOperation(value = "导出员工数据")
+    @GetMapping(value="/export",produces = "application/octet-steam")
+    public void exportEmployee(HttpServletResponse response){
+        List<Employee> employeeList = employeeService.getEmployee(null);
+        ExportParams params = new ExportParams("员工表", "员工表", ExcelType.HSSF);
+        Workbook workbook = ExcelExportUtil.exportExcel(params, Employee.class, employeeList);
+        ServletOutputStream outputStream=null;
+        try {
+            //流形式
+            response.setHeader("content-type","application/octet-steam");
+            //防止中文乱码
+            response.setHeader("content-disposition","attachment;filename="+ URLEncoder.encode("员工表.xls","UTF-8"));
+            outputStream = response.getOutputStream();
+
+            workbook.write(outputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            if(null!=outputStream){
+                try {
+                    outputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+
+    }
 }
