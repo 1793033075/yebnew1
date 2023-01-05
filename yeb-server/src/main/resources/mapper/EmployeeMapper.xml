@@ -74,11 +74,12 @@
             n.id AS nid,
             n.`name` AS nname,
             p.id AS pid,
-            p.`name` AS paname,
+            p.`name` AS pname,
             j.id AS jid,
             j.`name` AS jname,
             pos.id AS posid,
-            pos.`name` AS posname
+            pos.`name` AS posname,
+            d.name AS dname
             FROM
             t_employee e,
             t_nation n,
