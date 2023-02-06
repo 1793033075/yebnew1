@@ -22,8 +22,8 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("t_politicsstatus")
-@ApiModel(value="Politicsstatus对象", description="")
+@TableName("t_politics_status")
+@ApiModel(value="Politics_status对象", description="")
 public class PoliticsStatus implements Serializable {
 
     private static final long serialVersionUID = 1L;

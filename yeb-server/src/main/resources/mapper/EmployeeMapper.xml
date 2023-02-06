@@ -83,7 +83,7 @@
             FROM
             t_employee e,
             t_nation n,
-            t_politicsstatus p,
+            t_politics_status p,
             t_department d,
             t_joblevel j,
             t_position pos
@@ -136,7 +136,7 @@
         FROM
         t_employee e,
         t_nation n,
-        t_politicsstatus p,
+        t_politics_status p,
         t_department d,
         t_joblevel j,
         t_position pos
